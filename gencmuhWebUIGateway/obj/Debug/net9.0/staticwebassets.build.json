@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "AQ5Jl20XVtf8qHoVWfpMPwFRNrSDP1U5fIDzRIlbQKQ=",
+  "Source": "gencmuhWebUIGateway",
+  "BasePath": "_content/gencmuhWebUIGateway",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
