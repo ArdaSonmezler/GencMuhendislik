@@ -1,0 +1,15 @@
+# Build ve bağımlılık klasörleri
+bin/
+obj/
+node_modules/
+dist/
+*.nuget.g.props
+*.nuget.g.targets
+*.cache
+*.dgspec.json
+
+# Kullanıcıya özel ayarlar
+.vscode/
+*.user
+*.suo
+*.plist
