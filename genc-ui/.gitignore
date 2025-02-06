@@ -1,0 +1,29 @@
+# Klasörler içindeki geçici ve derleme dosyalarını hariç tutalım
+
+# 'A' klasöründeki tüm alt klasörler için bin ve obj dosyalarını hariç tutma
+**/bin/
+**/obj/
+
+# Kullanıcıya özel IDE dosyalarını hariç tutma
+**/.idea/
+**/.vscode/
+
+# Visual Studio geçici dosyaları
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# .NET Core NuGet bağımlılıkları ve diğer geçici dosyaları hariç tutma
+**/project.lock.json
+**/project.fragment.lock.json
+**/artifacts/
+
+# Windows'a özel geçici dosyalar
+**/Thumbs.db
+**/.DS_Store
+
+# Diğer geçici dosyalar
+**/*.log
+**/*.bak
+**/*.tmp
