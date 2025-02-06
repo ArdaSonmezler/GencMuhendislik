@@ -13,3 +13,5 @@ dist/
 *.user
 *.suo
 *.plist
+
+!nuget.config
