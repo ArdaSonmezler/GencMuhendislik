@@ -1,3 +1,9 @@
 # Ignore bin and obj folders in any subfolder
 **/bin/
 **/obj/
+
+# Ignore other build files
+**/*.pdb
+**/*.dll
+**/*.exe
+**/*.cache
