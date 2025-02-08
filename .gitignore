@@ -1,1 +1,3 @@
-bin/
+# Ignore bin and obj folders in any subfolder
+**/bin/
+**/obj/
