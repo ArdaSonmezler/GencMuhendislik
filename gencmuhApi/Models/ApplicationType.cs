@@ -1,6 +1,6 @@
 
 
-namespace gencmuhApi.Context
+namespace gencmuhApi.Models
 {
     public class ApplicationType
     {
