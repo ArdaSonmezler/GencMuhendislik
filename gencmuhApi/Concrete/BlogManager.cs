@@ -12,10 +12,11 @@ namespace gencmuhApi.Concrete
             _appDbContext = appDbContext;
         }
 
-        public async Task AddAsync(Blog t)
+        public async Task<string> AddAsync(Blog t)
         {
             await _appDbContext.AddAsync(t);
             await _appDbContext.SaveChangesAsync();
+            return "";
         }
 
         public async Task<List<Blog>> AllListAsync()
@@ -39,9 +40,9 @@ namespace gencmuhApi.Concrete
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Blog> GetByIdAsync(int id)
+        public Blog GetById(int id)
         {
-            var blog = await _appDbContext.Blogs.FindAsync(id);
+            var blog =  _appDbContext.Blogs.Find(id);
             if(blog is null)
                 throw new KeyNotFoundException("Belirtilen ID'ye sahip kayıt bulunamadı.");
 

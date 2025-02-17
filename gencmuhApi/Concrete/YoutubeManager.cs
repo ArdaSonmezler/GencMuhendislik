@@ -1,6 +1,10 @@
+using System.Data;
 using gencmuhApi.Abstract;
+using gencmuhApi.ExceptionHandler;
 using gencmuhApi.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace gencmuhApi.Concrete
 {
@@ -13,12 +17,30 @@ namespace gencmuhApi.Concrete
             _appDbContext = appDbContext;
         }
 
-        public async Task AddAsync(Youtube t)
+        public async Task<string> AddAsync(Youtube t)
         {
-            await _appDbContext.AddAsync(t);
-            await _appDbContext.SaveChangesAsync();
-        }
+            try
+            {
+                var linkTitle = new SqlParameter("@LinkTitle", t.LinkTitle);
+                var url = new SqlParameter("@Url", t.Url);
 
+                var idParam = new SqlParameter
+                {
+                    ParameterName = "@Id",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+                await _appDbContext.Database.ExecuteSqlRawAsync("EXEC sp_AddYoutube @LinkTitle, @Url, @Id OUTPUT",
+                linkTitle,url,idParam);
+
+                return idParam.Value.ToString(); 
+            }
+            catch (System.Exception ex)
+            {
+                
+                throw new Exception("Youtube kaydı eklenirken hata meydana geldi!");
+            }
+        }
         public async Task<List<Youtube>> AllListAsync()
         {
             try
@@ -39,13 +61,25 @@ namespace gencmuhApi.Concrete
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Youtube> GetByIdAsync(int id)
+        public Youtube GetById(int id)
         {
-            var youtube = await _appDbContext.Youtubes.FindAsync(id);
-            if(youtube is null)
-                throw new KeyNotFoundException("Belirtilen ID'ye sahip kayıt bulunamadı.");
+            try
+            {
+                var idParam = new SqlParameter("@Id",id);
+                var youtubeVideo = _appDbContext.Youtubes
+                .FromSqlRaw("EXEC sp_GetYoutubeById @Id",idParam)
+                .AsEnumerable().FirstOrDefault();
 
-            return youtube;
+                if(youtubeVideo == null)
+                {
+                    throw new NotFoundException($"ID {id} ile kayıtlı youtube videosu bulunamadı");
+                }
+                    
+                return youtubeVideo;
+            }
+            catch(Exception){
+                throw;
+            }
         }
 
         public async Task UpdateAsync(Youtube t)

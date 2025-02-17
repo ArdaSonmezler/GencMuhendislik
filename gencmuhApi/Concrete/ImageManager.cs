@@ -13,10 +13,11 @@ namespace gencmuhApi.Concrete
             _appDbContext = appDbContext;
         }
 
-        public async Task AddAsync(Image t)
+        public async Task<string> AddAsync(Image t)
         {
             await _appDbContext.AddAsync(t);
             await _appDbContext.SaveChangesAsync();
+            return null;
         }
 
         public async Task<List<Image>> AllListAsync()
@@ -39,9 +40,9 @@ namespace gencmuhApi.Concrete
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Image> GetByIdAsync(int id)
+        public Image GetById(int id)
         {
-            var image = await _appDbContext.Images.FindAsync(id);
+            var image = _appDbContext.Images.Find(id);
             if(image is null)
                 throw new KeyNotFoundException("Belirtilen ID'ye sahip kayıt bulunamadı.");
 

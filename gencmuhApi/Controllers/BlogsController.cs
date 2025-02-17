@@ -38,7 +38,7 @@ namespace gencmuhApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var blog = await _blogService.GetByIdAsync(id); // Blog’u bul
+            var blog = _blogService.GetById(id); // Blog’u bul
             if (blog is null)
                 return NotFound(new { message = "Blog bulunamadı" });
 
@@ -56,7 +56,7 @@ namespace gencmuhApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var blog = await _blogService.GetByIdAsync(id);
+            var blog = _blogService.GetById(id);
             if (blog == null)
                 return NotFound("Kayıt bulunamadı");
 

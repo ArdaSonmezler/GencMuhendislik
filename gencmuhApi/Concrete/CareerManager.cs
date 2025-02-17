@@ -13,10 +13,11 @@ namespace gencmuhApi.Concrete
             _appDbContext = appDbContext;
         }
 
-        public async Task AddAsync(Career t)
+        public async Task<string> AddAsync(Career t)
         {
             await _appDbContext.AddAsync(t);
             await _appDbContext.SaveChangesAsync();
+            return null;
         }
 
         public async Task<List<Career>> AllListAsync()
@@ -39,9 +40,9 @@ namespace gencmuhApi.Concrete
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Career> GetByIdAsync(int id)
+        public Career GetById(int id)
         {
-            var career = await _appDbContext.Careers.FindAsync(id);
+            var career = _appDbContext.Careers.Find(id);
             if(career is null)
                 throw new KeyNotFoundException("Belirtilen ID'ye sahip kayıt bulunamadı.");
 

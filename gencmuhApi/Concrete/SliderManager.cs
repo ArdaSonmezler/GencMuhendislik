@@ -13,10 +13,11 @@ namespace gencmuhApi.Concrete
             _appDbContext = appDbContext;
         }
 
-        public async Task AddAsync(Slider t)
+        public async Task<string> AddAsync(Slider t)
         {
             await _appDbContext.AddAsync(t);
             await _appDbContext.SaveChangesAsync();
+            return null;
         }
 
         public async Task<List<Slider>> AllListAsync()
@@ -39,9 +40,9 @@ namespace gencmuhApi.Concrete
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Slider> GetByIdAsync(int id)
+        public Slider GetById(int id)
         {
-            var slider = await _appDbContext.Sliders.FindAsync(id);
+            var slider = _appDbContext.Sliders.Find(id);
             if(slider is null)
                 throw new KeyNotFoundException("Belirtilen ID'ye sahip kayıt bulunamadı.");
 
